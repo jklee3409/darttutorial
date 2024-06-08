@@ -31,3 +31,23 @@ class ColorPoint extends Point{
 
   ColorPoint operator +(ColorPoint p) => ColorPoint(255,255,255, this.x + p.x, this.y + y);
 }
+
+class Logger {
+  final String name;
+  bool mute = false;
+
+  static final Map _cache = {};
+
+  factory Logger(String name){
+    return _cache.putIfAbsent(name, () => Logger._internal);
+  }
+
+  Logger._internal(this.name);
+
+  void log(String msg){
+    if (!mute) print(msg);
+  }
+
+  static get cacheLength => _cache.length;
+
+}

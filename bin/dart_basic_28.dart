@@ -3,7 +3,7 @@ import 'dart:async';
 import 'dart:convert';
 
 // Handler for HTTP Get Request
-Future<void> handleGetRequest(HttpRequest req) async {
+Future handleGetRequest(HttpRequest req) async {
   // #1 Retrieve an associated HttpResponse object in HttpRequest object.
   HttpResponse res = req.response;
 
@@ -11,44 +11,7 @@ Future<void> handleGetRequest(HttpRequest req) async {
   res.write('${DateTime.now()}: Hello, World!');
 
   // #4 Close the response and send it to the client.
-  res.close();
-}
-
-// Handler for not allowed HTTP Request.
-Future<void> handleNotAllowedRequest(HttpRequest req) async {
-  // #1 Retrieve an associated HttpResponse object in HttpRequest object.
-  HttpResponse res = req.response;
-
-  // #2 Do something : Example - Write text body in the response.
-  res
-    ..statusCode = HttpStatus.methodNotAllowed
-    ..write('${DateTime.now()}: Unsupported request: ${req.method}');
-
-  // #3 Close the response and send it to the client,
-  res.close();
-}
-
-// Handler for HTTP Request.
-Future handleRequest(HttpRequest req) async {
-  // #1 Do something based on HTTP Request types.
-  switch (req.method) {
-    // #1.1 GET Request.
-    case 'GET':
-      // Print log message and activate HTTP Get Request handler.
-      stdout.writeln("${DateTime.now()}: GET ${req.uri}");
-      await handleGetRequest(req);
-      break;
-    // #1.2 POST Requests.
-    case 'POST':
-      // Print lof message and activate HTTP POST Request handler.
-      stdout.writeln("${DateTime.now()}: POST ${req.uri}");
-      await handlePostRequest(req);
-      break;
-    // #1.3 Other Requests.
-    default:
-      stdout.writeln("${DateTime.now()}: ${req.method} not allowed.");
-      await handleNotAllowedRequest(req);
-  }
+  await res.close();
 }
 
 Future handlePostRequest(HttpRequest req) async {
@@ -91,6 +54,43 @@ Future handlePostRequest(HttpRequest req) async {
 
   // #3 Close the response and send it to the client.
   await res.close();
+}
+
+// Handler for not allowed HTTP Request.
+Future handleNotAllowedRequest(HttpRequest req) async {
+  // #1 Retrieve an associated HttpResponse object in HttpRequest object.
+  HttpResponse res = req.response;
+
+  // #2 Do something : Example - Write text body in the response.
+  res
+    ..statusCode = HttpStatus.methodNotAllowed
+    ..write('${DateTime.now()}: Unsupported request: ${req.method}');
+
+  // #3 Close the response and send it to the client,
+  await res.close();
+}
+
+// Handler for HTTP Request.
+Future handleRequest(HttpRequest req) async {
+  // #1 Do something based on HTTP Request types.
+  switch (req.method) {
+    // #1.1 GET Request.
+    case 'GET':
+      // Print log message and activate HTTP Get Request handler.
+      stdout.writeln("${DateTime.now()}: GET ${req.uri}");
+      await handleGetRequest(req);
+      break;
+    // #1.2 POST Requests.
+    case 'POST':
+      // Print lof message and activate HTTP POST Request handler.
+      stdout.writeln("${DateTime.now()}: POST ${req.uri}");
+      await handlePostRequest(req);
+      break;
+    // #1.3 Other Requests.
+    default:
+      stdout.writeln("${DateTime.now()}: ${req.method} not allowed.");
+      await handleNotAllowedRequest(req);
+  }
 }
 
 Future main() async {

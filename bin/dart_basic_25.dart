@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 heavyLoadFunction1() {
   print("[heavyLoadFunction1(): started.]");
   var sum = 0;

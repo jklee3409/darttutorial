@@ -1,3 +1,5 @@
+// SERVER
+
 import 'dart:io';
 import 'dart:async';
 import 'dart:convert';
@@ -96,7 +98,7 @@ Future handleRequest(HttpRequest req) async {
 Future main() async {
   // #1 Specify HTTP Server address (localhost) and port.
   final HOST = InternetAddress.loopbackIPv4;
-  final PORT = 4040;
+  final PORT = 4049;
 
   // #2 Starts listening for HTTP requests on the address and port.
   var httpServer = await HttpServer.bind(HOST, PORT);

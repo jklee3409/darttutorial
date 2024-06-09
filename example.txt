@@ -1,0 +1,1 @@
+{"C++":"Bjarne Stroustrup","Dart":"Lars Bak and Kasper Lund","Go":"Robert Griesemer, Rob Pike, Ken Thompson","JavaScript":"Brendan Eich"}
